@@ -34,6 +34,11 @@ powerful, non-linear classifiers on quantum-encoded data.
 # IMPORTS
 # ─────────────────────────────────────────────────────────────────────────────
 
+# Force UTF-8 output on Windows (handles Qiskit's box-drawing characters)
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
 # Qiskit — IBM's open-source quantum computing SDK
 from qiskit import QuantumCircuit
 
@@ -54,7 +59,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
 print("=" * 60)
-print("  ✅  All packages imported successfully!")
+print("  [OK]  All packages imported successfully!")
 print("  Qiskit + Aer + NumPy + Matplotlib are ready.")
 print("=" * 60)
 
@@ -110,7 +115,7 @@ print("=" * 60)
 # STEP 1: BUILD THE QUANTUM CIRCUIT
 # ─────────────────────────────────────────────────────────────────────────────
 
-print("\n📐 Building 2-qubit quantum circuit...")
+print("\n[*] Building 2-qubit quantum circuit...")
 
 # Create a quantum circuit with:
 #   - 2 quantum registers (qubits)
@@ -136,18 +141,18 @@ qc.cx(0, 1)
 qc.measure(0, 0)
 qc.measure(1, 1)
 
-print("  ✅  Circuit built successfully!")
-print(f"  • Number of qubits    : {qc.num_qubits}")
-print(f"  • Number of gates     : {qc.size()}")
-print(f"  • Circuit depth       : {qc.depth()}")
-print(f"  • Classical registers : {qc.num_clbits}")
+print("  [OK] Circuit built successfully!")
+print(f"  - Number of qubits    : {qc.num_qubits}")
+print(f"  - Number of gates     : {qc.size()}")
+print(f"  - Circuit depth       : {qc.depth()}")
+print(f"  - Classical registers : {qc.num_clbits}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 2: DISPLAY THE CIRCUIT DIAGRAM
 # ─────────────────────────────────────────────────────────────────────────────
 
-print("\n🖼️  Circuit Diagram (text form):")
+print("\n[DIAGRAM] Circuit Diagram (text form):")
 print("-" * 50)
 print(qc.draw(output="text"))
 print("-" * 50)
@@ -157,7 +162,7 @@ print("-" * 50)
 # STEP 3: SIMULATE WITH AER SIMULATOR
 # ─────────────────────────────────────────────────────────────────────────────
 
-print("\n⚙️  Running simulation on AerSimulator...")
+print("\n[SIM] Running simulation on AerSimulator...")
 
 # Initialize the Aer statevector/shot-based simulator
 simulator = AerSimulator()
@@ -175,18 +180,18 @@ result = job.result()
 # Extract the measurement counts (e.g., {'00': 512, '11': 512})
 counts = result.get_counts(compiled_circuit)
 
-print(f"  ✅  Simulation complete! ({SHOTS} shots)")
-print(f"\n📊 Measurement Counts:")
+print(f"  [OK] Simulation complete! ({SHOTS} shots)")
+print(f"\n[RESULTS] Measurement Counts:")
 print(f"  {counts}")
 print()
 
 # Interpret the results
 for state, count in sorted(counts.items()):
     probability = count / SHOTS * 100
-    print(f"  |{state}⟩  →  {count:4d} times  ({probability:.1f}%)")
+    print(f"  |{state}>  ->  {count:4d} times  ({probability:.1f}%)")
 
 print()
-print("  💡 Notice: Only '00' and '11' appear — this is ENTANGLEMENT at work!")
+print("  [!] Notice: Only '00' and '11' appear -- this is ENTANGLEMENT at work!")
 print("     The qubits are perfectly correlated: measuring one tells you the other.")
 
 
@@ -194,7 +199,7 @@ print("     The qubits are perfectly correlated: measuring one tells you the oth
 # STEP 4: VISUALIZE — CIRCUIT + HISTOGRAM
 # ─────────────────────────────────────────────────────────────────────────────
 
-print("\n🎨 Generating visualizations...")
+print("\n[PLOT] Generating visualizations...")
 
 fig = plt.figure(figsize=(14, 7), facecolor="#0f0f1a")
 fig.suptitle(
@@ -289,7 +294,7 @@ ax2.text(
 
 plt.savefig("step1_quantum_circuit_output.png", dpi=150, bbox_inches="tight",
             facecolor="#0f0f1a")
-print("  ✅  Plot saved as 'step1_quantum_circuit_output.png'")
+print("  [OK] Plot saved as 'step1_quantum_circuit_output.png'")
 plt.show()
 
 
@@ -298,7 +303,7 @@ plt.show()
 # ─────────────────────────────────────────────────────────────────────────────
 
 print("\n" + "=" * 60)
-print("  📋  STEP 1 SUMMARY")
+print("  STEP 1 SUMMARY")
 print("=" * 60)
 print("""
   Circuit Built   : 2-qubit Bell State Circuit
@@ -307,16 +312,16 @@ print("""
   Shots Run       : 1024
 
   Key Concepts Demonstrated:
-    ✔  Qubit superposition via Hadamard gate
-    ✔  Quantum entanglement via CNOT gate
-    ✔  Measurement collapse and probabilistic outcomes
-    ✔  Bell state |Φ+⟩ — one of the four maximally entangled states
+    [+] Qubit superposition via Hadamard gate
+    [+] Quantum entanglement via CNOT gate
+    [+] Measurement collapse and probabilistic outcomes
+    [+] Bell state |Phi+> -- one of the four maximally entangled states
 
   Connection to "Circuit-Centric Quantum Classifiers" (Schuld et al.):
-    ✔  The H + CNOT structure IS the entangling ansatz used in PQCs
-    ✔  Superposition enables exploration of high-dimensional feature spaces
-    ✔  Entanglement enables cross-qubit feature correlations (non-linearity)
-    ✔  Measurement maps quantum state → classical prediction (class label)
+    [+] The H + CNOT structure IS the entangling ansatz used in PQCs
+    [+] Superposition enables exploration of high-dimensional feature spaces
+    [+] Entanglement enables cross-qubit feature correlations (non-linearity)
+    [+] Measurement maps quantum state -> classical prediction (class label)
 
   NEXT STEP → Data encoding + parameterized rotation gates (Rx, Ry, Rz)
               to build the actual variational quantum classifier circuit.
