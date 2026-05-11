@@ -219,18 +219,21 @@ ax1.set_facecolor("#1a1a2e")
 ax1.set_title("Quantum Circuit (Bell State)", color="#a78bfa", fontsize=12, pad=12)
 ax1.axis("off")
 
-circuit_fig = qc.draw(output="mpl", style={"backgroundcolor": "#1a1a2e",
-                                            "textcolor": "#e2e8f0",
-                                            "gatefacecolor": "#7c3aed",
-                                            "gatetextcolor": "#ffffff",
-                                            "subtextcolor": "#94a3b8",
-                                            "linecolor": "#64748b",
-                                            "creglinecolor": "#38bdf8",
-                                            "measurearrowcolor": "#38bdf8",
-                                            "latexdrawerstyle": True,
-                                            "usepiformat": True,
-                                            "fold": -1,
-                                            "cregbundle": False})
+circuit_fig = qc.draw(
+    output="mpl",
+    fold=-1,
+    cregbundle=False,
+    style={
+        "backgroundcolor": "#1a1a2e",
+        "textcolor": "#e2e8f0",
+        "gatefacecolor": "#7c3aed",
+        "gatetextcolor": "#ffffff",
+        "subtextcolor": "#94a3b8",
+        "linecolor": "#64748b",
+        "creglinecolor": "#38bdf8",
+        "measurearrowcolor": "#38bdf8",
+    }
+)
 
 circuit_fig.set_facecolor("#1a1a2e")
 
