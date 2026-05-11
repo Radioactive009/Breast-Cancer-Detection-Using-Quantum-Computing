@@ -298,7 +298,10 @@ ax2.text(
 plt.savefig("step1_quantum_circuit_output.png", dpi=150, bbox_inches="tight",
             facecolor="#0f0f1a")
 print("  [OK] Plot saved as 'step1_quantum_circuit_output.png'")
-plt.show()
+# Non-blocking show: displays the window briefly in interactive environments
+plt.show(block=False)
+plt.pause(3)
+plt.close("all")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
